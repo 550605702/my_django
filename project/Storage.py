@@ -1,8 +1,6 @@
 
 # -----测试需要加载----
 import os;
-
-
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_my.settings")  # "auto_sale_spider.settings"改为setting文件位置
 import django;
 django.setup()
@@ -10,6 +8,7 @@ django.setup()
 
 
 from project.models import User,Fulltext,Paragraphtext
+
 
 #把查询结果通过uid存入数据库
 def creatText(datas,uid,fulltext):
@@ -19,12 +18,34 @@ def creatText(datas,uid,fulltext):
         print(fulltext.id)
         for data in datas:
             Paragraphtext.objects.create(textid=fulltext,paragraph=data['paragraph'],repeat=data['repeat'],link=data['link'])
-        return 200
+        status = {
+            "statusCode": 200,
+        }
+        return status
     except Exception as err:
         if str(err) == "User matching query does not exist.":
             print("用户不存在")
-            return 401
-    pass;
+            status = {
+                "statusCode": 401,
+            }
+            return status
+
+
+def addUser(username,password,email):
+    try:
+        user = User.objects.create(username=username,password=password,email=email)
+        status = {
+            "statusCode":404,
+            "uid":user.id
+        }
+        return status
+    except Exception as err:
+        status = {
+            "statusCode":404,
+            "err":err
+        }
+        return status
+
 
 
 def test():
@@ -43,7 +64,8 @@ def test():
     pass
 
 
-# if __name__ == '__main__':
+if __name__ == '__main__':
+    addUser("ming","1231231","asdasd")
     # datas = [
     #     {
     #         "paragraph":"sadadwqdq",

@@ -8,7 +8,7 @@ def func():
     # print("haha")
     cleaning.cleaning()
     # 如果需要一天循环调用，就要添加以下方法timer(秒，执行方法。)
-    timer = threading.Timer(5, func)
+    timer = threading.Timer(86400, func)
     timer.start()
 
 def timefunc():
@@ -32,6 +32,6 @@ def timefunc():
 
     print("1111")
     # 定时器,参数为(多少时间后执行，单位为秒，执行的方法)在此次的意思是，在明天3点是执行func方法,然后进入func方法，每一天执行一次
-    timer = threading.Timer(2, func)
+    timer = threading.Timer(timer_start_time, func)
     timer.start()
 

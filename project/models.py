@@ -31,8 +31,9 @@ class Paragraphtext(models.Model):
 
 
 class User(models.Model):
-    username = models.CharField(max_length=255, blank=True, null=True)
-    password = models.CharField(max_length=255, blank=True, null=True)
+    username = models.CharField(max_length=255)
+    password = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
 
     class Meta:
         managed = False

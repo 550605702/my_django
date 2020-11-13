@@ -9,9 +9,9 @@ from django.db import models
 
 
 class Fulltext(models.Model):
-    uid = models.IntegerField()
+    uid = models.ForeignKey('User', models.DO_NOTHING, db_column='uid')
     fulltext = models.CharField(db_column='fullText', max_length=255, blank=True, null=True)  # Field name made lowercase.
-    time = models.DateTimeField(blank=True, null=True)
+    time = models.DateTimeField(auto_now_add=True)
     fullrepeat = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
@@ -20,9 +20,9 @@ class Fulltext(models.Model):
 
 
 class Paragraphtext(models.Model):
-    textid = models.IntegerField(db_column='textId')  # Field name made lowercase.
+    textid = models.ForeignKey(Fulltext, models.DO_NOTHING, db_column='textId')  # Field name made lowercase.
     paragraph = models.CharField(max_length=255, blank=True, null=True)
-    repeat = models.CharField(max_length=255, blank=True, null=True)
+    repeat = models.CharField(max_length=255, blank=True, null=True) #状态码401，查重失败百度安全验证。
     link = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:

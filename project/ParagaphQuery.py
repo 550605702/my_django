@@ -55,12 +55,12 @@ def query(wd,proxy):
         bsobj = BeautifulSoup(content.text, features="html.parser")
         # 获取搜索结果队列s
         tel =bsobj.find_all("title")[0].next
-        data['dl'] = wd
-        data['lj'] = urls
+        data['paragraph'] = wd
+        data['link'] = urls
         print(tel)
         if tel =="百度安全验证": #如果遇到验证判断
             print("百度验证")
-            data['cfd'] = "查重失败"
+            data['repeat'] = 401
             return data
 
         search_results = bsobj.find_all('div', {'class': 'result c-container new-pmd'})
@@ -81,7 +81,7 @@ def query(wd,proxy):
 
         cfd = "%.2f%%" % (len(redtext) / len(wd) * 100)
         # print(cfd)
-        data['cfd'] = cfd
+        data['repeat'] = cfd
         return data
     else:
         print("获取失败")

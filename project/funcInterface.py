@@ -24,3 +24,7 @@ def updateUser(username,password,newpassword):
 #返回状态码200表示成功，validationCode=验证码，返回403表示邮箱验证失败
 def getValidation(email):
     return funcImpl.getValidation(email)
+
+#返回状态码200表示成功，404 状态码返回用户注册失败，405 状态码返回用户名已存在，406 状态码返回邮箱已存在
+def addUser(username,password,email):
+    return funcImpl.addUser(username,password,email)

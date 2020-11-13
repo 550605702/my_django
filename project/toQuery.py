@@ -42,3 +42,7 @@ def nameQuery(username):
 #通过邮箱查询是否存在用户
 def emailQuery(email):
     return User.objects.filter(email=email)
+
+#通过用户名加邮箱查询是否存在用户
+def nameEmailUser(username,email):
+    return User.objects.filter(username=username,email=email)

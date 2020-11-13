@@ -17,3 +17,20 @@ def updateUser(username,password,newpassword):
             "statusCode":402,
         }
         return status
+
+#忘记密码修改密码
+def forgotPassword(username,newpassword):
+    user = User.objects.filter(username=username)
+    if user:
+        stat = user.update(password=newpassword)
+        status = {
+            "statusCode": 200,
+            "uid":user[0].id
+        }
+        print(status)
+        return status
+    else:
+        status = {
+            "statusCode":402,
+        }
+        return status

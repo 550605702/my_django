@@ -38,3 +38,31 @@ def addUser(username,password,email):
         }
         return status
     return Storage.addUser(username,password,email);
+
+def toNameUser(username):
+    if toQuery.nameQuery(username=username):
+        status = {
+            "statusCode": 200
+        }
+        return status
+    else:
+        status ={
+            "statusCode":405
+        }
+        return status
+
+def getNameEmaiValidation(username,email):
+    if toQuery.nameEmailUser(username,email):
+        list = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        code = random.sample(list, 6)
+        code = ''.join(code)
+        return EmailValidation.getValidation(email, code)
+    else:
+        status = {
+            "statusCode": 407#邮箱与用户名不匹配
+        }
+        return status
+
+
+def forgotPassword(username,newpassword):
+    return toUpdate.forgotPassword(username,newpassword)

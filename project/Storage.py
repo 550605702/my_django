@@ -1,5 +1,8 @@
+
 # -----测试需要加载----
 import os;
+
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_my.settings")  # "auto_sale_spider.settings"改为setting文件位置
 import django;
 django.setup()
@@ -7,6 +10,8 @@ django.setup()
 
 
 from project.models import User,Fulltext,Paragraphtext
+
+#把查询结果通过uid存入数据库
 def creatText(datas,uid,fulltext):
     try:
         uid = User.objects.get(id=uid)
@@ -20,7 +25,6 @@ def creatText(datas,uid,fulltext):
             print("用户不存在")
             return 401
     pass;
-
 
 
 def test():
@@ -39,17 +43,17 @@ def test():
     pass
 
 
-if __name__ == '__main__':
-    datas = [
-        {
-            "paragraph":"sadadwqdq",
-            "repeat":"98%",
-            "link":"链接1",
-        },{
-            "paragraph": "aaaaaaa",
-            "repeat": "92%",
-            "link": "链接2",
-        }
-    ]
+# if __name__ == '__main__':
+    # datas = [
+    #     {
+    #         "paragraph":"sadadwqdq",
+    #         "repeat":"98%",
+    #         "link":"链接1",
+    #     },{
+    #         "paragraph": "aaaaaaa",
+    #         "repeat": "92%",
+    #         "link": "链接2",
+    #     }
+    # ]
 
-    creatText(datas,2,"sdadqwdcvzcas")
+    # creatText(datas,2,"sdadqwdcvzcas")

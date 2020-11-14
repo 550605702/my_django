@@ -19,15 +19,41 @@ class Fulltext(models.Model):
         db_table = 'fulltext'
 
 
+class Integral(models.Model):
+    id = models.IntegerField(primary_key=True)
+    uid = models.ForeignKey('User', models.DO_NOTHING, db_column='uid')
+    number = models.IntegerField()
+    begintime = models.DateTimeField(auto_now_add=True)
+    overtime = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'integral'
+
+
 class Paragraphtext(models.Model):
     textid = models.ForeignKey(Fulltext, models.DO_NOTHING, db_column='textId')  # Field name made lowercase.
     paragraph = models.CharField(max_length=255, blank=True, null=True)
-    repeat = models.CharField(max_length=255, blank=True, null=True) #状态码401，查重失败百度安全验证。
+    repeat = models.CharField(max_length=255, blank=True, null=True)
     link = models.CharField(max_length=255, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'paragraphtext'
+
+
+class Topup(models.Model):
+    id = models.IntegerField()
+    uid = models.ForeignKey('User', models.DO_NOTHING, db_column='uid')
+    ordernumber = models.IntegerField(blank=True, null=True)
+    topuptime = models.DateTimeField(auto_now_add=True)
+    many = models.CharField(max_length=255)
+    details = models.CharField(max_length=255, blank=True, null=True)
+    state = models.CharField(max_length=255)
+
+    class Meta:
+        managed = False
+        db_table = 'topup'
 
 
 class User(models.Model):

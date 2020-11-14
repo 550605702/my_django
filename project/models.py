@@ -20,7 +20,6 @@ class Fulltext(models.Model):
 
 
 class Integral(models.Model):
-    id = models.IntegerField(primary_key=True)
     uid = models.ForeignKey('User', models.DO_NOTHING, db_column='uid')
     number = models.IntegerField()
     begintime = models.DateTimeField(auto_now_add=True)
@@ -43,7 +42,6 @@ class Paragraphtext(models.Model):
 
 
 class Topup(models.Model):
-    id = models.IntegerField()
     uid = models.ForeignKey('User', models.DO_NOTHING, db_column='uid')
     ordernumber = models.IntegerField(blank=True, null=True)
     topuptime = models.DateTimeField(auto_now_add=True)

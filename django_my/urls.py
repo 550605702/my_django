@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from project import views
 
 # 地址配置文件
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', views.index),
+    # path('admin/', admin.site.urls),
+    # path('', views.index),
+    url(r'^', include('pay.urls')),
     #两种写法都行，配置url访问地址
     # url(r'^$', views.index),
 ]

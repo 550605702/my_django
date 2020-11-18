@@ -35,7 +35,7 @@ def addUser(username,password,email):
     try:
         user = User.objects.create(username=username,password=password,email=email)
         status = {
-            "statusCode":404,
+            "statusCode":200,
             "uid":user.id
         }
         return status

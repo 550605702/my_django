@@ -27,5 +27,7 @@ urlpatterns = [
     #两种写法都行，配置url访问地址
     url(r'^login$', views.login),
     url(r'^userlogin/$', views.userlogin),
-    url(r'^getVerification/$', views.getVerification)
+    url(r'^getVerification/$', views.getVerification),
+    url(r'^userregister/$', views.userregister),
+    url(r'^rechecking/$', views.rechecking)
 ]

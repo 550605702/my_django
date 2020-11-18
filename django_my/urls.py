@@ -23,6 +23,9 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     # path('', views.index),
     url(r'^', include('pay.urls')),
+    # url(r'^', include('project.views'))
     #两种写法都行，配置url访问地址
-    # url(r'^$', views.index),
+    url(r'^login$', views.login),
+    url(r'^userlogin/$', views.userlogin),
+    url(r'^getVerification/$', views.getVerification)
 ]

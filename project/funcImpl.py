@@ -13,8 +13,8 @@ def queryText(text,title,uid):
         }
         return status
     # 查询分段
-    proxy = IPproxy.proxy()
-    data = StrParagaphQueyr.StrParagaph(text,proxy)
+
+    data = StrParagaphQueyr.StrParagaph(text)
     # 保存到数据库
     return Storage.creatText(data,fulltext)
 

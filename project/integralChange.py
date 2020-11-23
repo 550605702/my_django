@@ -1,10 +1,4 @@
 
-# -----测试需要加载----
-import os;
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_my.settings")  # "auto_sale_spider.settings"改为setting文件位置
-import django;
-django.setup()
-# -----测试需要加载----
 from project.models import Integral,User
 import datetime
 def addintegral(integral,uid):
@@ -28,14 +22,14 @@ def addintegral(integral,uid):
 def updateIntegral(number,uid):
     date = datetime.datetime.now()
     date = date.strftime("%Y-%m-%d %H:%M:%S")
-    print(date)
+    # print(date)
     integtal = Integral.objects.filter(overtime__gte=date,uid=uid)
     if integtal:
         numberall = 0;
         for ing in integtal:
             numberall=numberall+ing.number
         if numberall >= number:
-            print("可以查询"+str(numberall)+str(number))
+            # print("可以查询"+str(numberall)+str(number))
             num = number;
             for ins in integtal:
                 if ins.number>=num:
@@ -61,5 +55,3 @@ def updateIntegral(number,uid):
         }
         return status
 
-if __name__ == '__main__':
-    updateIntegral(17,1)

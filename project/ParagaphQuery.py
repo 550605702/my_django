@@ -79,7 +79,7 @@ def query(wd,proxy):
                 for em in keywords:
                     redtext = redtext+em.next
 
-        cfd = "%.2f%%" % (len(redtext) / len(wd) * 100)
+        cfd = "%.2f" %(len(redtext) / len(wd) * 100)
         # print(cfd)
         data['repeat'] = cfd
         return data

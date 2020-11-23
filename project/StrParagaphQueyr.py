@@ -1,5 +1,6 @@
 # import time
 # import queue
+import random
 from concurrent.futures import ThreadPoolExecutor
 from project import ParagaphQuery
 
@@ -7,21 +8,27 @@ from project import ParagaphQuery
 def StrParagaph(text,proxy):
     # 获取文档对象:
     data = []
-    tes = [text[i:i + 36] for i in range(0, len(text), 36)]
-    t = ThreadPoolExecutor(5)  # 多线程最大设置数量应该为os.cpu_count()的五倍,尽量不要多
-    lst = []
-    for para in tes:
-        th = t.submit(query,para, proxy)#MyThread(query, args=(para, proxy))
-        lst.append(th)
-    t.shutdown()
-    for i in lst:
-        data.append(i.result())
+    tes = [text[i:i + 48] for i in range(0, len(text), 48)]
+    t = ThreadPoolExecutor(max_workers=5)  # 多线程最大设置数量应该为os.cpu_count()的五倍,尽量不要多
+    # lst = []
+    proxys=[];
+    proxys.append(proxy)
+    proxys.append(proxy)
+    for result in t.map(query,tes,proxys):
+        data.append(result)
+    # for para in tes:
+    #     th = t.submit(query,para, proxy)#MyThread(query, args=(para, proxy))
+    #     lst.append(th)
+    # t.shutdown()
+    # for i in lst:
+    #     data.append(i.result())
     return data
 
 def query(para,proxy):
     data = []
-    datt = ParagaphQuery.query(para, proxy)
-    if datt['cfd'] == "查重失败":
+
+    datt = ParagaphQuery.query(para, random.choice(proxy))
+    if datt['repeat'] == 401:
         # 再次查询
-        return ParagaphQuery.query(para, proxy)
+        return ParagaphQuery.query(para, random.choice(proxy))
     return datt

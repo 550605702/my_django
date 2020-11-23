@@ -1,11 +1,23 @@
-from project import  StrParagaphQueyr,Storage,toQuery,toUpdate,EmailValidation
+from project import  StrParagaphQueyr,Storage,toQuery,toUpdate,EmailValidation,IPproxy,integralChange
+from project.models import User,Fulltext,Paragraphtext
 import random
-def queryText(text,uid):
-    proxy = "";
+def queryText(text,title,uid):
+    try:
+        #把文本先存入数据库，就算查重失败也不会导致乱扣积分，可通过记录得知查重结果
+        uid = User.objects.get(id=uid)
+        fulltext = Fulltext.objects.create(uid=uid, fulltext=text,title=title,fullrepeat=400)
+    except Exception as err:
+        status = {
+            "statusCode": 409,
+            "err": err
+        }
+        return status
     # 查询分段
-    data = StrParagaphQueyr.ParagaphQuery(text,proxy)
+    proxy = IPproxy.proxy()
+    data = StrParagaphQueyr.StrParagaph(text,proxy)
     # 保存到数据库
-    return Storage.creatText(data,uid,text)
+    return Storage.creatText(data,fulltext)
+
 
 def toUidQuery(uid):
     return toQuery.toUidQuery(uid)
@@ -66,3 +78,7 @@ def getNameEmaiValidation(username,email):
 
 def forgotPassword(username,newpassword):
     return toUpdate.forgotPassword(username,newpassword)
+
+
+def updateIntegral(number,uid):
+    return integralChange.updateIntegral(number,uid)

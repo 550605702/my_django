@@ -10,7 +10,8 @@ from django.db import models
 
 class Fulltext(models.Model):
     uid = models.ForeignKey('User', models.DO_NOTHING, db_column='uid')
-    fulltext = models.CharField(db_column='fullText', max_length=255, blank=True, null=True)  # Field name made lowercase.
+    title = models.CharField(max_length=255, blank=True, null=True)
+    fulltext = models.TextField(db_column='fullText', blank=True, null=True)  # Field name made lowercase.
     time = models.DateTimeField(auto_now_add=True)
     fullrepeat = models.CharField(max_length=255, blank=True, null=True)
 
@@ -28,6 +29,14 @@ class Integral(models.Model):
     class Meta:
         managed = False
         db_table = 'integral'
+
+
+class Ippoxys(models.Model):
+    poxys = models.CharField(max_length=255)
+
+    class Meta:
+        managed = False
+        db_table = 'ippoxys'
 
 
 class Paragraphtext(models.Model):

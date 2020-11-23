@@ -1,3 +1,11 @@
+# -----测试需要加载----
+import math
+import os;
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "django_my.settings")  # "auto_sale_spider.settings"改为setting文件位置
+import django;
+django.setup()
+# -----测试需要加载----
+
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from project import funcInterface
@@ -48,3 +56,20 @@ def userregister(request):
     print(status)
     return JsonResponse(status)
     # print(str(username)+'---'+str(password)+'-------'+str(email))
+
+#文本查重
+def textRechecking(request):
+    content = request.POST.get('content')
+    title =request.POST.get('title')
+    uid = request.POST.get('uid')
+    number = len(content.replace(" ",""))
+    number = math.ceil(number/1000)
+    # print(number)
+    status = funcInterface.updateIntegral(number,uid)
+    if(status['statusCode']==200):
+        funcInterface.queryText(content,title,uid)
+        return JsonResponse(status)
+    else:
+        return JsonResponse(status)
+
+

@@ -2,8 +2,8 @@ from project import funcImpl
 
 
 # 查询文本,掉用这个接口需要提供，全文文本字符串形式，和用户id
-def queryText(text,uid):
-    return funcImpl.queryText(text, uid)
+def queryText(text,title,uid):
+    return funcImpl.queryText(text,title,uid)
 
 
 #通过uid查询查重记录返回status=200和数据表示成功，401表示用户不存在
@@ -40,3 +40,7 @@ def getNameEmaiValidation(username,email):
 #忘记密码改密码
 def forgotPassword(username,newpassword):
     return funcImpl.forgotPassword(username,newpassword)
+
+#积分消耗
+def updateIntegral(number,uid):
+    return funcImpl.updateIntegral(number,uid)

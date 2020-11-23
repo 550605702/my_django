@@ -10,12 +10,18 @@ django.setup()
 from project.models import User,Fulltext,Paragraphtext
 
 
-#把查询结果通过uid存入数据库
-def creatText(datas,uid,fulltext):
+#把查询结果存入数据库
+def creatText(datas,fulltext):
     try:
-        uid = User.objects.get(id=uid)
-        fulltext = Fulltext.objects.create(uid=uid,fulltext=fulltext,fullrepeat="99%")
-        print(fulltext.id)
+        repeat = 0
+        for data in datas:
+            if(data['repeat']!=401):
+                repeat= repeat+len(data['repeat'])
+        repeat = repeat / len(datas)
+        fulltext.fullrepeat = repeat
+        fulltext.save(update_fields=['fullrepeat'])
+        # fulltext = fulltext.save().update(fullrepeat=repeat)
+        # print(fulltext.id)
         for data in datas:
             Paragraphtext.objects.create(textid=fulltext,paragraph=data['paragraph'],repeat=data['repeat'],link=data['link'])
         status = {
@@ -29,6 +35,7 @@ def creatText(datas,uid,fulltext):
                 "statusCode": 401,
             }
             return status
+        print(err)
 
 
 def addUser(username,password,email):
@@ -65,17 +72,26 @@ def test():
 
 
 if __name__ == '__main__':
-    addUser("ming","1231231","asdasd")
-    # datas = [
-    #     {
-    #         "paragraph":"sadadwqdq",
-    #         "repeat":"98%",
-    #         "link":"链接1",
-    #     },{
-    #         "paragraph": "aaaaaaa",
-    #         "repeat": "92%",
-    #         "link": "链接2",
-    #     }
-    # ]
+    # addUser("ming","1231231","asdasd")
+    reat = 401
+    datas = [
+        {
+            "paragraph":"sadadwqdq",
+            "repeat":reat,
+            "link":"链接1",
+        },{
+            "paragraph": "aaaaaaa",
+            "repeat": reat,
+            "link": "链接2",
+        }
+    ]
 
+    repeat = 0
+    for data in datas:
+        if (data["repeat"] != 401):
+            repeat = repeat + int(data["repeat"])
+    print(repeat)
+    repeat = repeat / len(datas)
+    print(repeat)
+    # fulltext = Fulltext.objects.create(uid=uid, fulltext=fulltext, fullrepeat=repeat)
     # creatText(datas,2,"sdadqwdcvzcas")

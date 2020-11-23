@@ -29,5 +29,6 @@ urlpatterns = [
     url(r'^userlogin/$', views.userlogin),
     url(r'^getVerification/$', views.getVerification),
     url(r'^userregister/$', views.userregister),
-    url(r'^rechecking/$', views.rechecking)
+    url(r'^rechecking/$', views.rechecking),
+    url(r'^textrechecking/$', views.textRechecking)
 ]
